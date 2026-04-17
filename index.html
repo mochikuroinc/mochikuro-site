@@ -13,94 +13,84 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' shape-rendering='crispEdges'%3E%3Crect width='32' height='32' rx='4' fill='%230a0a0a'/%3E%3Cg fill='%23f5f0e8'%3E%3Crect x='6' y='4' width='4' height='4'/%3E%3Crect x='22' y='4' width='4' height='4'/%3E%3Crect x='4' y='8' width='24' height='16'/%3E%3C/g%3E%3Cg fill='%23c2603b'%3E%3Crect x='10' y='12' width='3' height='3'/%3E%3Crect x='19' y='12' width='3' height='3'/%3E%3C/g%3E%3C/svg%3E">
 
 <style>
-/* Hero */
+/* Hero: 全画面背景 */
 .top-hero {
   min-height: 100vh;
-  background: #1e293b;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 24px 48px;
   position: relative;
+  display: flex;
+  align-items: flex-end;
   overflow: hidden;
 }
-.top-hero::before {
-  content: '';
+.top-hero-bg {
   position: absolute;
   inset: 0;
-  background-image:
-    radial-gradient(1px 1px at 10% 20%, rgba(212,175,55,0.4), transparent),
-    radial-gradient(1px 1px at 30% 60%, rgba(212,175,55,0.3), transparent),
-    radial-gradient(1px 1px at 50% 10%, rgba(250,250,247,0.3), transparent),
-    radial-gradient(1px 1px at 70% 40%, rgba(212,175,55,0.4), transparent),
-    radial-gradient(1px 1px at 85% 75%, rgba(250,250,247,0.2), transparent),
-    radial-gradient(2px 2px at 15% 80%, rgba(212,175,55,0.3), transparent),
-    radial-gradient(1px 1px at 60% 85%, rgba(250,250,247,0.3), transparent),
-    radial-gradient(1px 1px at 90% 15%, rgba(212,175,55,0.4), transparent);
-  animation: particleDrift 15s ease-in-out infinite alternate;
+  z-index: 0;
+  background: #1e293b;
+}
+.top-hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center 38%;
+}
+/* 下部だけグラデで暗くしてテキスト読めるように。画像中央は透明 */
+.top-hero-fade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    transparent 50%,
+    rgba(30,41,59,0.7) 70%,
+    #1e293b 90%);
   pointer-events: none;
 }
-@keyframes particleDrift {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(-20px, 15px); }
-}
-.top-hero-logo {
+.top-hero-content {
+  position: relative;
+  z-index: 2;
   width: 100%;
-  max-width: 960px;
-  margin-bottom: 48px;
-  position: relative;
-  z-index: 1;
-  animation: heroFadeIn 1.2s ease-out;
-}
-.top-hero-logo img { width: 100%; height: auto; display: block; }
-@keyframes heroFadeIn {
-  from { opacity: 0; transform: translateY(20px) scale(0.97); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-.top-hero-text {
   text-align: center;
-  max-width: 600px;
-  position: relative;
-  z-index: 1;
-  animation: heroTextIn 1s ease-out 0.5s both;
+  padding: 0 24px 48px;
 }
-@keyframes heroTextIn {
+@keyframes fadeIn {
   from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.top-hero-text h1 {
+.top-hero-content h1 {
   font-family: var(--f-display);
-  font-size: clamp(22px, 3.8vw, 42px);
+  font-size: clamp(22px, 3.8vw, 44px);
   font-weight: 600;
   color: #fafaf7;
   line-height: 1.5;
   letter-spacing: 0.02em;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.5);
+  animation: fadeIn 1s ease-out 0.3s both;
 }
-.top-hero-text h1 em { font-style: normal; color: #d4af37; }
-.top-hero-text p {
+.top-hero-content h1 em { font-style: normal; color: #d4af37; }
+.top-hero-content p {
   font-size: clamp(12px, 1.1vw, 15px);
-  color: rgba(250,250,247,0.55);
+  color: rgba(250,250,247,0.6);
   line-height: 2;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
+  animation: fadeIn 1s ease-out 0.5s both;
 }
 .top-hero-cta {
   display: flex;
   gap: 14px;
   justify-content: center;
   flex-wrap: wrap;
-  animation: heroTextIn 1s ease-out 0.8s both;
+  animation: fadeIn 1s ease-out 0.7s both;
 }
 .top-scroll {
   position: absolute;
-  bottom: 20px;
+  bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
   font-size: 10px;
   letter-spacing: 0.3em;
-  color: rgba(250,250,247,0.25);
+  color: rgba(250,250,247,0.2);
   text-transform: uppercase;
 }
 
@@ -195,16 +185,17 @@
 
 <!-- HERO -->
 <section class="top-hero">
-  <div class="top-hero-logo">
+  <div class="top-hero-bg">
     <img src="assets/images/hero-main.jpg" alt="mochikuro.inc">
   </div>
-  <div class="top-hero-text">
+  <div class="top-hero-fade"></div>
+  <div class="top-hero-content">
     <h1>ITとECの力で、企業の価値を<em>モチアゲる</em>。</h1>
     <p>AI技術顧問・EC事業・DX戦略の3つの事業で、<br>お客様の事業を次のステージへ引き上げます。</p>
-  </div>
-  <div class="top-hero-cta">
-    <a href="mochiage-ec/index.html" class="btn btn-primary btn-arrow" style="background:#d4af37;color:#0a0a0a;">モチアゲECを知る</a>
-    <a href="contact.html" class="btn btn-ghost" style="color:#fafaf7;border-color:rgba(250,250,247,0.3);">お問い合わせ</a>
+    <div class="top-hero-cta">
+      <a href="mochiage-ec/index.html" class="btn btn-primary btn-arrow" style="background:#d4af37;color:#0a0a0a;">モチアゲECを知る</a>
+      <a href="contact.html" class="btn btn-ghost" style="color:#fafaf7;border-color:rgba(250,250,247,0.3);">お問い合わせ</a>
+    </div>
   </div>
   <div class="top-scroll">Scroll</div>
 </section>
