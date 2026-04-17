@@ -15,87 +15,19 @@
 <style>
 /* Hero: 全画面背景 */
 .top-hero {
-  min-height: 100vh;
   position: relative;
-  display: flex;
-  align-items: flex-end;
   overflow: hidden;
 }
 .top-hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
   background: #1e293b;
+  padding-top: 70px;
 }
 .top-hero-bg img {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center 38%;
-}
-/* 下部だけグラデで暗くしてテキスト読めるように。画像中央は透明 */
-.top-hero-fade {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(180deg,
-    transparent 0%,
-    transparent 40%,
-    rgba(30,41,59,0.5) 55%,
-    rgba(30,41,59,0.85) 68%,
-    #1e293b 80%);
-  pointer-events: none;
-}
-.top-hero-content {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: 640px;
+  max-width: 1000px;
+  height: auto;
+  display: block;
   margin: 0 auto;
-  text-align: center;
-  padding: 0 24px 64px;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.top-hero-content h1 {
-  font-family: var(--f-display);
-  font-size: clamp(22px, 3.8vw, 44px);
-  font-weight: 600;
-  color: #fafaf7;
-  line-height: 1.5;
-  letter-spacing: 0.02em;
-  margin-bottom: 16px;
-  text-shadow: 0 2px 16px rgba(0,0,0,0.5);
-  animation: fadeIn 1s ease-out 0.3s both;
-}
-.top-hero-content h1 em { font-style: normal; color: #d4af37; }
-.top-hero-content p {
-  font-size: clamp(12px, 1.1vw, 15px);
-  color: rgba(250,250,247,0.6);
-  line-height: 2;
-  margin-bottom: 28px;
-  animation: fadeIn 1s ease-out 0.5s both;
-}
-.top-hero-cta {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  flex-wrap: wrap;
-  animation: fadeIn 1s ease-out 0.7s both;
-}
-.top-scroll {
-  position: absolute;
-  bottom: 12px;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  color: rgba(250,250,247,0.2);
-  text-transform: uppercase;
-  text-align: center;
 }
 
 /* Image card */
@@ -187,21 +119,28 @@
   </div>
 </header>
 
-<!-- HERO -->
+<!-- HERO: 画像エリア -->
 <section class="top-hero">
   <div class="top-hero-bg">
     <img src="assets/images/hero-main.jpg" alt="mochikuro.inc">
   </div>
-  <div class="top-hero-fade"></div>
-  <div class="top-hero-content">
-    <h1>ITとECの力で、企業の価値を<em>モチアゲる</em>。</h1>
-    <p>AI技術顧問・EC事業・DX戦略の3つの事業で、<br>お客様の事業を次のステージへ引き上げます。</p>
-    <div class="top-hero-cta">
+</section>
+
+<!-- HERO: テキストエリア（画像の下、完全に分離）-->
+<section style="background: #1e293b; padding: 48px 24px 80px; text-align: center;">
+  <div style="max-width: 640px; margin: 0 auto;">
+    <h1 style="font-family: var(--f-display); font-size: clamp(22px, 3.8vw, 44px); font-weight: 600; color: #fafaf7; line-height: 1.5; letter-spacing: 0.02em; margin-bottom: 16px; animation: fadeIn 1s ease-out 0.3s both;">
+      ITとECの力で、企業の価値を<em style="font-style:normal;color:#d4af37;">モチアゲる</em>。
+    </h1>
+    <p style="font-size: clamp(12px, 1.1vw, 15px); color: rgba(250,250,247,0.6); line-height: 2; margin-bottom: 28px; animation: fadeIn 1s ease-out 0.5s both;">
+      AI技術顧問・EC事業・DX戦略の3つの事業で、<br>お客様の事業を次のステージへ引き上げます。
+    </p>
+    <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; animation: fadeIn 1s ease-out 0.7s both;">
       <a href="mochiage-ec/index.html" class="btn btn-primary btn-arrow" style="background:#d4af37;color:#0a0a0a;">モチアゲECを知る</a>
       <a href="contact.html" class="btn btn-ghost" style="color:#fafaf7;border-color:rgba(250,250,247,0.3);">お問い合わせ</a>
     </div>
   </div>
-  <div class="top-scroll">Scroll</div>
+  <style>@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}</style>
 </section>
 
 <!-- SERVICES -->
