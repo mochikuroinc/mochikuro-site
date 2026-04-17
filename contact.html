@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact ｜ 株式会社mochikuro</title>
+<meta name="description" content="株式会社mochikuroへのお問い合わせフォーム。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' shape-rendering='crispEdges'%3E%3Crect width='32' height='32' rx='4' fill='%230a0a0a'/%3E%3Cg fill='%23f5f0e8'%3E%3Crect x='6' y='4' width='4' height='4'/%3E%3Crect x='22' y='4' width='4' height='4'/%3E%3Crect x='4' y='8' width='24' height='16'/%3E%3Crect x='8' y='24' width='4' height='4'/%3E%3Crect x='20' y='24' width='4' height='4'/%3E%3C/g%3E%3C/svg%3E">
+</head>
+<body class="page-contact" data-stamp="contact">
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand"><span class="brand-mark"></span><span>mochikuro</span></a>
+    <button class="menu-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <ul class="nav-menu rpg-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="ai-dx.html">AI・DX</a></li>
+      <li><a href="mochiage-ec/index.html">モチアゲEC</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="contact.html" class="nav-cta active">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="page-hero-v2">
+  <div class="container">
+    <div class="chapter-head reveal">Chapter · Contact</div>
+    <h1 class="reveal d1">冒険の書に、<br>名を記す。</h1>
+    <p class="lead reveal d2">
+      事業のご相談、代理店・オーナー企業のお申込み、採用など。<br>
+      何でもお気軽にお知らせください。
+    </p>
+  </div>
+</section>
+
+<section class="content">
+  <div class="container">
+
+    <div class="form-success" id="formSuccess">
+      <div style="font-size: 60px; margin-bottom: 20px;">🎊</div>
+      <h2 style="font-weight: 500;">送信完了しました</h2>
+      <p style="color: var(--c-muted); margin: 20px 0 40px; line-height: 2;">
+        お問い合わせありがとうございます。<br>
+        2営業日以内にご返信いたします。
+      </p>
+      <a href="index.html" class="btn btn-primary">ホームへ戻る</a>
+    </div>
+
+    <form class="form" id="contactForm" action="contact.php" method="POST" novalidate>
+
+      <div class="form-group">
+        <label class="form-label">お問い合わせ種別<span class="req">*</span></label>
+        <div class="form-radio-group">
+          <label class="form-radio"><input type="radio" name="type" value="agency" required> 代理店として申込</label>
+          <label class="form-radio"><input type="radio" name="type" value="owner" required> オーナー企業として申込</label>
+          <label class="form-radio"><input type="radio" name="type" value="ai-dx" required> AI・DX相談</label>
+          <label class="form-radio"><input type="radio" name="type" value="community" required> コミュニティ参加</label>
+          <label class="form-radio"><input type="radio" name="type" value="other" required> その他</label>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="company">会社名</label>
+          <input type="text" id="company" name="company" class="form-input" placeholder="株式会社〇〇">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="name">お名前<span class="req">*</span></label>
+          <input type="text" id="name" name="name" class="form-input" required placeholder="山田 太郎">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="email">メールアドレス<span class="req">*</span></label>
+          <input type="email" id="email" name="email" class="form-input" required placeholder="example@example.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="phone">電話番号</label>
+          <input type="tel" id="phone" name="phone" class="form-input" placeholder="03-1234-5678">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="subject">件名<span class="req">*</span></label>
+        <input type="text" id="subject" name="subject" class="form-input" required placeholder="〇〇についてのご相談">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="message">お問い合わせ内容<span class="req">*</span></label>
+        <textarea id="message" name="message" class="form-textarea" required placeholder="ご相談内容を詳しくお聞かせください"></textarea>
+      </div>
+
+      <div style="position: absolute; left: -9999px;">
+        <input type="text" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="form-group">
+        <label style="display: flex; gap: 10px; font-size: 13px; align-items: center;">
+          <input type="checkbox" required>
+          <span><a href="privacy.html" style="color: var(--c-warm); text-decoration: underline;">プライバシーポリシー</a>に同意します</span>
+        </label>
+      </div>
+
+      <div class="form-error" id="formError"></div>
+
+      <div class="form-submit">
+        <button type="submit" class="btn btn-primary btn-arrow" id="submitBtn">送信する</button>
+        <p style="font-size: 12px; color: var(--c-muted); margin-top: 16px;">* 2営業日以内にご返信いたします</p>
+      </div>
+    </form>
+
+    <div class="reveal pixel-border" style="max-width: 720px; margin: 40px auto 0; text-align: center; font-family: var(--f-pixel); font-size: 13px; line-height: 1.8;">
+      <span style="color: var(--c-warm);">★</span> スタンプラリー全制覇された方は、<br>
+      件名に「<strong style="color: var(--c-warm);">皆伝</strong>」と記すと代表より直接返答あり。
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="brand"><span class="brand-mark"></span><span>mochikuro</span></a>
+        <p>AIとテクノロジーで事業を加速する、柔軟なパートナー。</p>
+        <div style="display: flex; gap: 8px; opacity: 0.7;"><img src="assets/images/cat-white.png" alt="" style="width:28px;height:28px;image-rendering:pixelated;"><img src="assets/images/cat-black.png" alt="" style="width:28px;height:28px;image-rendering:pixelated;"></div>
+      </div>
+      <nav class="footer-nav">
+        <div><h4>Services</h4><ul class="rpg-menu"><li><a href="ai-dx.html">AI・DX</a></li><li><a href="mochiage-ec/index.html">モチアゲEC</a></li><li><a href="community.html">Community</a></li></ul></div>
+        <div><h4>Company</h4><ul class="rpg-menu"><li><a href="about.html">About</a></li><li><a href="ceo.html">Message</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div><h4>Mochiage EC</h4><ul class="rpg-menu"><li><a href="mochiage-ec/for-owners.html">パートナー企業募集</a></li><li><a href="mochiage-ec/faq.html">FAQ</a></li></ul></div>
+      </nav>
+    </div>
+    <div class="footer-bottom"><div>© 2023–2026 mochikuro Inc.</div><div><a href="privacy.html">Privacy Policy</a></div></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const type = params.get('type');
+  if (type) {
+    const radio = document.querySelector(`input[name="type"][value="${type}"]`);
+    if (radio) radio.checked = true;
+  }
+})();
+
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = this;
+  const errorEl = document.getElementById('formError');
+  const btn = document.getElementById('submitBtn');
+  errorEl.classList.remove('show');
+  btn.disabled = true;
+  btn.textContent = '送信中…';
+  const formData = new FormData(form);
+  try {
+    const res = await fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.message || '送信に失敗しました');
+    }
+    form.style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (err) {
+    errorEl.textContent = '⚠️ ' + err.message;
+    errorEl.classList.add('show');
+    btn.disabled = false;
+    btn.textContent = '送信する';
+  }
+});
+</script>
+</body>
+</html>

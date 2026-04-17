@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="400" height="200">
+  <!-- 墨絵風の横筆ストローク -->
+  <defs>
+    <filter id="sumiNoise">
+      <feTurbulence baseFrequency="0.9" numOctaves="2" seed="5"/>
+      <feColorMatrix values="0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0.5 0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+    </filter>
+  </defs>
+  <g opacity="0.8">
+    <path d="M20 100 Q100 85 200 105 Q300 115 380 95" stroke="#1a1a1a" stroke-width="18" fill="none" stroke-linecap="round" filter="url(#sumiNoise)"/>
+  </g>
+</svg>

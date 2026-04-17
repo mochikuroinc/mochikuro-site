@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220">
+  <!-- 黒猫（モダンフラット・イラスト） -->
+  <g>
+    <!-- Tail (curved high) -->
+    <path d="M 150 160 C 186 150, 192 95, 180 62 C 175 50, 160 54, 162 72 C 170 95, 170 128, 156 152 Z" fill="#1a1a1a"/>
+    <!-- Body -->
+    <path d="M 55 130 Q 55 205, 100 205 Q 145 205, 145 130 Q 145 100, 100 100 Q 55 100, 55 130 Z" fill="#1a1a1a"/>
+    <!-- Paws -->
+    <ellipse cx="80" cy="203" rx="13" ry="8" fill="#1a1a1a"/>
+    <ellipse cx="120" cy="203" rx="13" ry="8" fill="#1a1a1a"/>
+    <!-- Head -->
+    <circle cx="100" cy="75" r="46" fill="#1a1a1a"/>
+    <!-- Ears -->
+    <path d="M 58 45 L 55 4 L 90 40 Z" fill="#1a1a1a" stroke-linejoin="round"/>
+    <path d="M 142 45 L 145 4 L 110 40 Z" fill="#1a1a1a" stroke-linejoin="round"/>
+    <!-- Inner ears -->
+    <path d="M 63 42 L 61 18 L 82 40 Z" fill="#3a2a3a"/>
+    <path d="M 137 42 L 139 18 L 118 40 Z" fill="#3a2a3a"/>
+    <!-- Eyes (gold with slit pupils) -->
+    <ellipse cx="82" cy="72" rx="7" ry="7" fill="#d4af37"/>
+    <ellipse cx="118" cy="72" rx="7" ry="7" fill="#d4af37"/>
+    <ellipse cx="82" cy="72" rx="2" ry="6" fill="#1a1a1a"/>
+    <ellipse cx="118" cy="72" rx="2" ry="6" fill="#1a1a1a"/>
+    <circle cx="84" cy="69" r="1.3" fill="#ffffff"/>
+    <circle cx="120" cy="69" r="1.3" fill="#ffffff"/>
+    <!-- Nose -->
+    <path d="M 95 87 L 105 87 L 100 94 Z" fill="#d4af37"/>
+    <!-- Mouth -->
+    <path d="M 100 94 Q 92 101 86 97 M 100 94 Q 108 101 114 97" stroke="#d4af37" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <!-- Whiskers -->
+    <g stroke="#ffffff" stroke-width="1.3" stroke-linecap="round" opacity="0.75">
+      <line x1="54" y1="85" x2="78" y2="86"/>
+      <line x1="54" y1="93" x2="78" y2="92"/>
+      <line x1="122" y1="86" x2="146" y2="85"/>
+      <line x1="122" y1="92" x2="146" y2="93"/>
+    </g>
+  </g>
+</svg>

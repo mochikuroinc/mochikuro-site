@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>株式会社mochikuro ｜ ITとECの力で、企業の価値をモチアゲる</title>
+<meta name="description" content="AI技術顧問、モチアゲEC、DX戦略。楽しく、確かに、企業の価値を引き上げるITパートナー。">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&family=DotGothic16&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' shape-rendering='crispEdges'%3E%3Crect width='32' height='32' rx='4' fill='%230a0a0a'/%3E%3Cg fill='%23f5f0e8'%3E%3Crect x='6' y='4' width='4' height='4'/%3E%3Crect x='22' y='4' width='4' height='4'/%3E%3Crect x='4' y='8' width='24' height='16'/%3E%3C/g%3E%3Cg fill='%23c2603b'%3E%3Crect x='10' y='12' width='3' height='3'/%3E%3Crect x='19' y='12' width='3' height='3'/%3E%3C/g%3E%3C/svg%3E">
+
+<style>
+/* Hero */
+.top-hero {
+  min-height: 100vh;
+  background: #1e293b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.top-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(212,175,55,0.4), transparent),
+    radial-gradient(1px 1px at 30% 60%, rgba(212,175,55,0.3), transparent),
+    radial-gradient(1px 1px at 50% 10%, rgba(250,250,247,0.3), transparent),
+    radial-gradient(1px 1px at 70% 40%, rgba(212,175,55,0.4), transparent),
+    radial-gradient(1px 1px at 85% 75%, rgba(250,250,247,0.2), transparent),
+    radial-gradient(2px 2px at 15% 80%, rgba(212,175,55,0.3), transparent),
+    radial-gradient(1px 1px at 60% 85%, rgba(250,250,247,0.3), transparent),
+    radial-gradient(1px 1px at 90% 15%, rgba(212,175,55,0.4), transparent);
+  animation: particleDrift 15s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes particleDrift {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-20px, 15px); }
+}
+.top-hero-logo {
+  width: 100%;
+  max-width: 960px;
+  margin-bottom: 48px;
+  position: relative;
+  z-index: 1;
+  animation: heroFadeIn 1.2s ease-out;
+}
+.top-hero-logo img { width: 100%; height: auto; display: block; }
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.top-hero-text {
+  text-align: center;
+  max-width: 600px;
+  position: relative;
+  z-index: 1;
+  animation: heroTextIn 1s ease-out 0.5s both;
+}
+@keyframes heroTextIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.top-hero-text h1 {
+  font-family: var(--f-display);
+  font-size: clamp(22px, 3.8vw, 42px);
+  font-weight: 600;
+  color: #fafaf7;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  margin-bottom: 20px;
+}
+.top-hero-text h1 em { font-style: normal; color: #d4af37; }
+.top-hero-text p {
+  font-size: clamp(12px, 1.1vw, 15px);
+  color: rgba(250,250,247,0.55);
+  line-height: 2;
+  margin-bottom: 32px;
+}
+.top-hero-cta {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: heroTextIn 1s ease-out 0.8s both;
+}
+.top-scroll {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: rgba(250,250,247,0.25);
+  text-transform: uppercase;
+}
+
+/* Image card */
+.img-card {
+  border: 2px solid var(--c-line);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.img-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 rgba(0,0,0,0.12);
+}
+.img-card img { width: 100%; height: auto; display: block; }
+
+/* Service cards */
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+.svc-card {
+  display: block;
+  background: var(--c-surface);
+  border: 2px solid var(--c-line);
+  padding: 36px 28px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+.svc-card:hover {
+  border-color: var(--c-ink);
+  transform: translate(-4px, -4px);
+  box-shadow: 4px 4px 0 var(--c-ink);
+}
+.svc-card-num {
+  font-family: 'DotGothic16', monospace;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--c-warm);
+  margin-bottom: 12px;
+}
+.svc-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.svc-card p {
+  font-size: 13px;
+  color: var(--c-muted);
+  line-height: 1.9;
+  margin-bottom: 20px;
+}
+.svc-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px dashed var(--c-line);
+  font-family: 'DotGothic16', monospace;
+  font-size: 11px;
+  color: var(--c-muted);
+}
+.svc-card-arrow { color: var(--c-warm); transition: transform 0.3s; }
+.svc-card:hover .svc-card-arrow { transform: translateX(6px); }
+
+@media (max-width: 600px) {
+  .svc-grid { grid-template-columns: 1fr; }
+  .top-hero-logo { max-width: 95%; }
+}
+</style>
+</head>
+<body class="page-home" data-stamp="home">
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand"><span class="brand-mark"></span><span>mochikuro</span></a>
+    <button class="menu-toggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+    <ul class="nav-menu rpg-menu">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="ai-dx.html">AI・DX</a></li>
+      <li><a href="mochiage-ec/index.html">モチアゲEC</a></li>
+      <li><a href="community.html">Community</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="top-hero">
+  <div class="top-hero-logo">
+    <img src="assets/images/hero-main.jpg" alt="mochikuro.inc">
+  </div>
+  <div class="top-hero-text">
+    <h1>ITとECの力で、企業の価値を<em>モチアゲる</em>。</h1>
+    <p>AI技術顧問・EC事業・DX戦略の3つの事業で、<br>お客様の事業を次のステージへ引き上げます。</p>
+  </div>
+  <div class="top-hero-cta">
+    <a href="mochiage-ec/index.html" class="btn btn-primary btn-arrow" style="background:#d4af37;color:#0a0a0a;">モチアゲECを知る</a>
+    <a href="contact.html" class="btn btn-ghost" style="color:#fafaf7;border-color:rgba(250,250,247,0.3);">お問い合わせ</a>
+  </div>
+  <div class="top-scroll">Scroll</div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" style="background: var(--c-bg-soft);">
+  <div class="container">
+    <div class="chapter-head reveal">Our Business</div>
+    <h2 class="reveal d1" style="font-size: clamp(28px, 4vw, 44px); font-weight: 500; letter-spacing: -0.02em; margin-bottom: 12px;">
+      3つの事業で、価値を届ける。
+    </h2>
+    <p class="reveal d2" style="color: var(--c-muted); max-width: 520px; line-height: 2;">
+      それぞれが独立しつつ交差し合い、<br>複合的な変化をお客様の事業に届けます。
+    </p>
+
+    <div class="svc-grid">
+      <a href="ai-dx.html" class="svc-card reveal">
+        <div class="svc-card-num">SERVICE 01</div>
+        <h3>AI技術顧問・DX戦略</h3>
+        <p>経営課題からAIの活用まで。戦略→実装→運用を一気通貫で伴走する技術パートナー。</p>
+        <div class="svc-card-footer">
+          <span>TYPE / TECH</span>
+          <span class="svc-card-arrow">▶</span>
+        </div>
+      </a>
+      <a href="mochiage-ec/index.html" class="svc-card reveal d1">
+        <div class="svc-card-num">SERVICE 02</div>
+        <h3>モチアゲEC</h3>
+        <p>弊社提携の海外企業と国内企業をマッチング。共同EC運営事業を通じて企業価値をモチアゲる。</p>
+        <div class="svc-card-footer">
+          <span>TYPE / EC</span>
+          <span class="svc-card-arrow">▶</span>
+        </div>
+      </a>
+      <a href="community.html" class="svc-card reveal d2">
+        <div class="svc-card-num">SERVICE 03</div>
+        <h3>SHIZUKU Lab</h3>
+        <p>AI活用と事業成長を語り合うコミュニティ。実践知の交差点。</p>
+        <div class="svc-card-footer">
+          <span>TYPE / COMMUNITY</span>
+          <span class="svc-card-arrow">▶</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- モチアゲEC プレビュー -->
+<section class="section">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+      <div class="img-card reveal">
+        <img src="assets/images/hero-ec.jpg" alt="モチアゲEC">
+      </div>
+      <div>
+        <div class="chapter-head reveal">Featured</div>
+        <h2 class="reveal d1" style="font-size: clamp(24px, 3.5vw, 36px); font-weight: 500; letter-spacing: -0.01em; margin-bottom: 16px;">
+          ECという大きな市場から、<br>企業の価値をモチアゲる。
+        </h2>
+        <p class="reveal d2" style="color: var(--c-muted); line-height: 2; margin-bottom: 24px;">
+          弊社が提携する海外企業の日本EC参入と、<br>
+          企業価値を高めたい国内企業をマッチング。<br>
+          共同運営事業の管理・マネジメントを弊社が主導します。
+        </p>
+        <a href="mochiage-ec/index.html" class="btn btn-primary btn-arrow reveal d3">詳しく見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- チーム -->
+<section class="section" style="background: var(--c-bg-soft);">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+      <div>
+        <div class="chapter-head reveal">Our Team</div>
+        <h2 class="reveal d1" style="font-size: clamp(24px, 3.5vw, 36px); font-weight: 500; margin-bottom: 16px;">
+          楽しく、真剣に。<br>テクノロジーと向き合う毎日。
+        </h2>
+        <p class="reveal d2" style="color: var(--c-muted); line-height: 2;">
+          AI、EC、DX。それぞれの専門性を持つメンバーが<br>
+          1つのチームとして課題に取り組んでいます。
+        </p>
+      </div>
+      <div class="img-card reveal d1">
+        <img src="assets/images/section-ai.jpg" alt="チームの仕事風景">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- コミュニティ -->
+<section class="section">
+  <div class="container">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+      <div class="img-card reveal">
+        <img src="assets/images/section-community.jpg" alt="SHIZUKU Lab">
+      </div>
+      <div>
+        <div class="chapter-head reveal">Community</div>
+        <h2 class="reveal d1" style="font-size: clamp(24px, 3.5vw, 36px); font-weight: 500; margin-bottom: 16px;">
+          知識を持ち寄り、<br>一緒に考える場。
+        </h2>
+        <p class="reveal d2" style="color: var(--c-muted); line-height: 2;">
+          SHIZUKU Lab。AI活用と事業成長を語り合うコミュニティ。
+        </p>
+        <a href="community.html" class="btn btn-ghost reveal d3" style="margin-top: 20px;">詳しく見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 理念 -->
+<section style="position: relative; overflow: hidden; padding: 120px 0;">
+  <div style="position: absolute; inset: 0;"><img src="assets/images/section-philosophy.jpg" alt="" style="width:100%;height:100%;object-fit:cover;"></div>
+  <div style="position: absolute; inset: 0; background: rgba(10,10,10,0.5);"></div>
+  <div class="container" style="position: relative; z-index: 1; text-align: center; max-width: 640px;">
+    <h2 class="reveal" style="font-family: var(--f-display); font-size: clamp(24px, 4vw, 44px); font-weight: 500; color: #fafaf7; line-height: 1.5; margin-bottom: 16px;">
+      変化は脅威ではなく、<br>可能性そのもの。
+    </h2>
+    <p class="reveal d1" style="color: rgba(250,250,247,0.7); line-height: 2; font-size: clamp(13px, 1.1vw, 15px);">
+      猫のように柔軟に、自由な発想で、確かな変化を。<br>
+      私たちmochikuroは、その力をお客様と共に育てます。
+    </p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+    <div class="cta-grid">
+      <h2 class="reveal">まず、話を<br>聞かせてください。</h2>
+      <div class="cta-buttons reveal d1">
+        <a href="contact.html" class="btn btn-primary btn-arrow">お問い合わせ</a>
+        <a href="about.html" class="btn btn-ghost">会社を知る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="brand"><span class="brand-mark"></span><span>mochikuro</span></a>
+        <p>ITとECの力で、企業の価値をモチアゲる。</p>
+        <div class="ft-cats" style="display: flex; gap: 8px; opacity: 0.7; margin-top: 12px;">
+          <img src="assets/images/cat-white.png" alt="" style="width: 28px; height: 28px; image-rendering: pixelated;">
+          <img src="assets/images/cat-black.png" alt="" style="width: 28px; height: 28px; image-rendering: pixelated;">
+        </div>
+      </div>
+      <nav class="footer-nav">
+        <div><h4>Services</h4><ul class="rpg-menu"><li><a href="ai-dx.html">AI・DX</a></li><li><a href="mochiage-ec/index.html">モチアゲEC</a></li><li><a href="community.html">Community</a></li></ul></div>
+        <div><h4>Company</h4><ul class="rpg-menu"><li><a href="about.html">About</a></li><li><a href="ceo.html">Message</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div><h4>Mochiage EC</h4><ul class="rpg-menu"><li><a href="mochiage-ec/for-owners.html">パートナー企業募集</a></li><li><a href="mochiage-ec/faq.html">FAQ</a></li></ul></div>
+      </nav>
+    </div>
+    <div class="footer-bottom"><div>© 2023–2026 mochikuro Inc.</div><div><a href="privacy.html">Privacy Policy</a></div></div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
