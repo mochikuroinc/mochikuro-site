@@ -17,10 +17,10 @@
   --c-gold: #a87f3c;              /* 落ち着いた金 */
   --c-warm: #c2603b;              /* 温かい朱 */
 
-  /* タイポ */
-  --f-sans: 'Inter', 'Noto Sans JP', sans-serif;
-  --f-serif: 'Noto Serif JP', 'Times New Roman', serif;
-  --f-display: 'Noto Serif JP', serif;
+  /* タイポ: 全てゲームフォント */
+  --f-sans: 'DotGothic16', 'Noto Sans JP', monospace;
+  --f-serif: 'DotGothic16', 'Noto Sans JP', monospace;
+  --f-display: 'DotGothic16', 'Noto Sans JP', monospace;
 
   /* サイズ */
   --container: 1280px;
