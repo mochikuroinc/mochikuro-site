@@ -1309,10 +1309,9 @@ h1, h2, h3, h4 {
 .pixel-border {
   position: relative;
   padding: 24px;
-  background: var(--c-bg);
-  border: 2px solid var(--c-ink);
-  box-shadow:
-    4px 4px 0 var(--c-ink);
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: 2px;
 }
 
 /* ステータスバー（RPG風） */
