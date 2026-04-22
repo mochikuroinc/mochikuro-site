@@ -216,14 +216,227 @@ body, h1, h2, h3, h4, p, a, span, div, button, li, label, input, textarea, selec
   line-height: 1.5;
 }
 
+/* ===== ゲームエフェクト ===== */
+
+/* ページ読み込み時のRPGブート画面 */
+.game-boot {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0a0a0a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  transition: opacity 0.8s ease;
+}
+.game-boot.fade-out { opacity: 0; pointer-events: none; }
+.game-boot-text {
+  color: #d4af37;
+  font-size: 14px;
+  letter-spacing: 0.3em;
+  animation: bootBlink 1s steps(2) infinite;
+}
+.game-boot-bar {
+  width: 200px;
+  height: 6px;
+  background: #222;
+  border: 1px solid #333;
+  overflow: hidden;
+}
+.game-boot-fill {
+  height: 100%;
+  width: 0%;
+  background: #d4af37;
+  animation: bootLoad 1.8s ease-in-out forwards;
+}
+@keyframes bootBlink { 50% { opacity: 0.3; } }
+@keyframes bootLoad { 0% { width: 0%; } 100% { width: 100%; } }
+
+/* タイピングエフェクト */
+.typing {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #d4af37;
+  width: 0;
+  animation: typeIn 2s steps(20) 0.5s forwards, blinkCaret 0.7s steps(2) infinite;
+}
+@keyframes typeIn { to { width: 100%; } }
+@keyframes blinkCaret { 50% { border-color: transparent; } }
+
+/* ヒーロー文字の1文字ずつ出現 */
+.char-reveal span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: charIn 0.4s ease forwards;
+}
+@keyframes charIn { to { opacity: 1; transform: translateY(0); } }
+
+/* パーティクル（浮遊するドット） */
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #d4af37;
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleFloat linear infinite;
+}
+@keyframes particleFloat {
+  0% { opacity: 0; transform: translateY(100vh) scale(0); }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.3; }
+  100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+}
+
+/* セクション見出しのグリッチエフェクト */
+.glitch {
+  position: relative;
+}
+.glitch:hover::before,
+.glitch:hover::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.glitch:hover::before {
+  color: #c2603b;
+  z-index: -1;
+  animation: glitch1 0.3s ease infinite;
+}
+.glitch:hover::after {
+  color: #4a9eff;
+  z-index: -2;
+  animation: glitch2 0.3s ease infinite;
+}
+@keyframes glitch1 {
+  0%, 100% { clip-path: inset(0 0 80% 0); transform: translate(-2px, 0); }
+  25% { clip-path: inset(20% 0 60% 0); transform: translate(2px, 0); }
+  50% { clip-path: inset(40% 0 40% 0); transform: translate(-1px, 0); }
+  75% { clip-path: inset(60% 0 20% 0); transform: translate(1px, 0); }
+}
+@keyframes glitch2 {
+  0%, 100% { clip-path: inset(80% 0 0 0); transform: translate(2px, 0); }
+  25% { clip-path: inset(60% 0 20% 0); transform: translate(-2px, 0); }
+  50% { clip-path: inset(40% 0 40% 0); transform: translate(1px, 0); }
+  75% { clip-path: inset(20% 0 60% 0); transform: translate(-1px, 0); }
+}
+
+/* サービスカードのスキャンラインhover */
+.svc-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(212,175,55,0.03) 50%,
+    transparent 100%);
+  background-size: 100% 4px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.svc-card:hover::before { opacity: 1; }
+.svc-card { position: relative; overflow: hidden; }
+
+/* ボタンのゲーム風プレスエフェクト */
+.btn-gold, .btn-line, .btn-primary, .btn-ghost {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.15s ease !important;
+}
+.btn-gold:active, .btn-line:active, .btn-primary:active, .btn-ghost:active {
+  transform: scale(0.95) !important;
+  filter: brightness(1.2);
+}
+/* ボタンホバー時の光のスウィープ */
+.btn-gold::after, .btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s ease;
+}
+.btn-gold:hover::after, .btn-primary:hover::after {
+  left: 150%;
+}
+
+/* スクロールで数字がカウントアップ */
+.count-up { font-variant-numeric: tabular-nums; }
+
+/* 画像のパララックス風スクロール */
+.parallax-img {
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+/* RPGダイアログ風ツールチップ（hover） */
+.rpg-tip {
+  position: relative;
+  cursor: help;
+}
+.rpg-tip::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  background: #0a0a0a;
+  color: #fafaf7;
+  border: 2px solid #d4af37;
+  padding: 8px 14px;
+  font-size: 11px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+.rpg-tip:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .feat-grid, .split-grid { grid-template-columns: 1fr; gap: 32px; }
   .svc-grid { grid-template-columns: 1fr; }
+  .game-boot-text { font-size: 12px; }
+  .particles { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .particles, .game-boot { display: none; }
+  .typing { width: auto; animation: none; border: none; }
+  .char-reveal span { opacity: 1; transform: none; animation: none; }
 }
 </style>
 </head>
 <body class="page-home" data-stamp="home">
+
+<!-- RPGブート画面 -->
+<div class="game-boot" id="gameBoot">
+  <img src="assets/images/cat-white.png" alt="" style="width:48px;height:48px;image-rendering:pixelated;animation:bootBlink 1.5s ease infinite;">
+  <div class="game-boot-text">N O W &nbsp; L O A D I N G</div>
+  <div class="game-boot-bar"><div class="game-boot-fill"></div></div>
+</div>
+
+<!-- 浮遊パーティクル -->
+<div class="particles" id="particles"></div>
 
 <!-- NAV -->
 <header class="site-header">
@@ -247,7 +460,7 @@ body, h1, h2, h3, h4, p, a, span, div, button, li, label, input, textarea, selec
     <img src="assets/images/hero-main.jpg" alt="mochikuro.inc">
   </div>
   <div class="hero-text-area">
-    <h1>ITとECの力で、企業の価値を<em>モチアゲる</em>。</h1>
+    <h1 class="glitch" data-text="ITとECの力で、企業の価値をモチアゲる。" id="heroTitle">ITとECの力で、企業の価値を<em>モチアゲる</em>。</h1>
     <p>AI技術顧問・EC事業・DX戦略の3つの事業で、<br>お客様の事業を次のステージへ引き上げます。</p>
     <div class="hero-btns">
       <a href="mochiage-ec/index.html" class="btn-gold">モチアゲECを知る →</a>
@@ -260,7 +473,7 @@ body, h1, h2, h3, h4, p, a, span, div, button, li, label, input, textarea, selec
 <section class="svc-section">
   <div class="container">
     <div style="font-size: 11px; letter-spacing: 0.3em; color: var(--c-muted); margin-bottom: 16px;" class="reveal">OUR BUSINESS</div>
-    <h2 class="reveal d1" style="font-size: clamp(20px, 3vw, 32px); margin-bottom: 8px;">3つの事業で、価値を届ける。</h2>
+    <h2 class="reveal d1 glitch" data-text="3つの事業で、価値を届ける。" style="font-size: clamp(20px, 3vw, 32px); margin-bottom: 8px;">3つの事業で、価値を届ける。</h2>
     <p class="reveal d2" style="font-size: 13px; color: var(--c-muted); line-height: 2; max-width: 480px;">
       それぞれが独立しつつ交差し合い、<br>複合的な変化をお客様の事業に届けます。
     </p>
@@ -384,5 +597,88 @@ body, h1, h2, h3, h4, p, a, span, div, button, li, label, input, textarea, selec
 </footer>
 
 <script src="js/main.js"></script>
+<script>
+// ===== RPGブート画面 =====
+(function(){
+  const boot = document.getElementById('gameBoot');
+  if(!boot) return;
+  setTimeout(()=>{
+    boot.classList.add('fade-out');
+    setTimeout(()=> boot.remove(), 800);
+  }, 2200);
+})();
+
+// ===== 浮遊パーティクル =====
+(function(){
+  const container = document.getElementById('particles');
+  if(!container || window.matchMedia('(max-width:768px)').matches) return;
+  for(let i=0; i<25; i++){
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random()*100 + '%';
+    p.style.animationDuration = (8 + Math.random()*12) + 's';
+    p.style.animationDelay = (-Math.random()*15) + 's';
+    p.style.width = p.style.height = (2 + Math.random()*3) + 'px';
+    if(Math.random()>0.7) p.style.background = '#fafaf7';
+    container.appendChild(p);
+  }
+})();
+
+// ===== 画像パララックス =====
+(function(){
+  const imgs = document.querySelectorAll('.feat-img img, .split-img img');
+  if(!imgs.length || window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  window.addEventListener('scroll', ()=>{
+    const scrollY = window.scrollY;
+    imgs.forEach(img=>{
+      const rect = img.getBoundingClientRect();
+      if(rect.top < window.innerHeight && rect.bottom > 0){
+        const offset = (rect.top - window.innerHeight/2) * 0.05;
+        img.style.transform = `translateY(${offset}px) scale(1.05)`;
+      }
+    });
+  }, {passive:true});
+})();
+
+// ===== ボタンクリック時のRPG SE音 =====
+document.querySelectorAll('.btn-gold, .btn-line, .btn-primary, .btn-ghost, .nav-cta').forEach(btn=>{
+  btn.addEventListener('click', function(){
+    try {
+      const ctx = new (window.AudioContext||window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.setValueAtTime(880, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(1320, ctx.currentTime+0.05);
+      osc.frequency.exponentialRampToValueAtTime(660, ctx.currentTime+0.1);
+      gain.gain.setValueAtTime(0.12, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+0.15);
+      osc.type = 'square';
+      osc.start();
+      osc.stop(ctx.currentTime+0.15);
+    } catch(e){}
+  });
+});
+
+// ===== サービスカードhover時のRPGカーソル音 =====
+document.querySelectorAll('.svc-card').forEach(card=>{
+  card.addEventListener('mouseenter', function(){
+    try {
+      const ctx = new (window.AudioContext||window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.value = 1200;
+      gain.gain.setValueAtTime(0.06, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+0.08);
+      osc.type = 'square';
+      osc.start();
+      osc.stop(ctx.currentTime+0.08);
+    } catch(e){}
+  });
+});
+</script>
 </body>
 </html>
