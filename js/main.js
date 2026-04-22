@@ -1,6 +1,6 @@
 /* ============================================================
-   mochikuro main.js - 全ページ共通
-   楽しいけど疲れない遊び心
+   mochikuro main.js
+   意味のある遊び心だけ残す
    ============================================================ */
 
 (function() {
@@ -24,7 +24,7 @@
   }
 
   // ============================================================
-  // スクロールリビール
+  // スクロールリビール（ふわっと出現）
   // ============================================================
   function initReveal() {
     const els = document.querySelectorAll('.reveal');
@@ -36,7 +36,7 @@
   }
 
   // ============================================================
-  // 🎮 ブート画面（セッション初回のみ）
+  // 🎮 ブート画面（初回のみ）
   // ============================================================
   function initBoot() {
     if (sessionStorage.getItem('mochi_booted')) return;
@@ -60,113 +60,23 @@
   }
 
   // ============================================================
-  // ✨ パーティクル
+  // ✨ パーティクル（静かに浮遊）
   // ============================================================
   function initParticles() {
     if (window.matchMedia('(max-width:768px)').matches) return;
     const container = document.createElement('div');
     container.className = 'particles';
     document.body.prepend(container);
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 15; i++) {
       const p = document.createElement('div');
       p.className = 'particle';
       p.style.left = Math.random() * 100 + '%';
-      p.style.animationDuration = (10 + Math.random() * 15) + 's';
+      p.style.animationDuration = (12 + Math.random() * 18) + 's';
       p.style.animationDelay = (-Math.random() * 20) + 's';
       p.style.width = p.style.height = (1.5 + Math.random() * 2) + 'px';
       if (Math.random() > 0.7) p.style.background = '#fafaf7';
       container.appendChild(p);
     }
-  }
-
-  // ============================================================
-  // 📊 XPバー
-  // ============================================================
-  function initXPBar() {
-    const bar = document.createElement('div');
-    bar.className = 'xp-bar';
-    bar.style.width = '0%';
-    document.body.prepend(bar);
-    window.addEventListener('scroll', () => {
-      const pct = document.documentElement.scrollHeight - window.innerHeight;
-      bar.style.width = (pct > 0 ? (window.scrollY / pct) * 100 : 0) + '%';
-    }, { passive: true });
-  }
-
-  // ============================================================
-  // 🏆 レベルバッジ
-  // ============================================================
-  let xp = parseInt(sessionStorage.getItem('mochi_xp') || '0');
-  const titles = ['VISITOR', 'EXPLORER', 'ADVENTURER', 'CHALLENGER', 'HERO'];
-
-  function initLevel() {
-    const badge = document.createElement('div');
-    badge.className = 'level-badge';
-    badge.id = 'levelBadge';
-    document.body.appendChild(badge);
-    updateLevel();
-    let lastScroll = Math.floor(window.scrollY / 500);
-    window.addEventListener('scroll', () => {
-      const now = Math.floor(window.scrollY / 500);
-      if (now > lastScroll) { addXP(1); lastScroll = now; }
-    }, { passive: true });
-  }
-
-  function addXP(amount) {
-    xp += amount;
-    sessionStorage.setItem('mochi_xp', xp);
-    updateLevel();
-  }
-
-  function updateLevel() {
-    const badge = document.getElementById('levelBadge');
-    if (!badge) return;
-    const lv = Math.min(5, Math.floor(xp / 5) + 1);
-    const title = titles[Math.min(lv - 1, titles.length - 1)];
-    badge.innerHTML = `<span class="lv">Lv.${lv}</span> <span style="opacity:0.5">${title}</span>`;
-  }
-  window._addXP = addXP;
-
-  // ============================================================
-  // 🔑 コナミコマンド
-  // ============================================================
-  function initKonami() {
-    const el = document.createElement('div');
-    el.className = 'rpg-dialog-float';
-    el.innerHTML = '<div id="rpgDialogText"></div>';
-    document.body.appendChild(el);
-
-    const code = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
-    let idx = 0;
-    document.addEventListener('keydown', e => {
-      if (e.keyCode === code[idx]) {
-        idx++;
-        if (idx === code.length) {
-          idx = 0;
-          const flash = document.createElement('div');
-          flash.className = 'screen-flash';
-          document.body.appendChild(flash);
-          setTimeout(() => flash.remove(), 600);
-          try {
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            [523, 659, 784, 1047].forEach((freq, i) => {
-              const o = ctx.createOscillator();
-              const g = ctx.createGain();
-              o.connect(g); g.connect(ctx.destination);
-              o.frequency.value = freq; o.type = 'square';
-              g.gain.setValueAtTime(0.08, ctx.currentTime + i * 0.15);
-              g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.15 + 0.3);
-              o.start(ctx.currentTime + i * 0.15);
-              o.stop(ctx.currentTime + i * 0.15 + 0.3);
-            });
-          } catch (e) {}
-          addXP(50);
-          el.querySelector('#rpgDialogText').innerHTML = '<span style="background:#d4af37;color:#0a0a0a;font-size:10px;font-weight:700;padding:2px 8px;margin-right:8px;">SECRET</span> 隠しコマンド発動！ Lv.MAX 🎊';
-          el.classList.add('show');
-          setTimeout(() => el.classList.remove('show'), 5000);
-        }
-      } else { idx = 0; }
-    });
   }
 
   // ============================================================
@@ -214,10 +124,7 @@
   function initNavGlow() {
     const style = document.createElement('style');
     style.textContent = `
-      .nav-menu a::after {
-        content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
-        background:#d4af37;transform:scaleX(0);transform-origin:right;transition:transform 0.3s ease;
-      }
+      .nav-menu a::after { content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:#d4af37;transform:scaleX(0);transform-origin:right;transition:transform 0.3s ease; }
       .nav-menu a:hover::after { transform:scaleX(1);transform-origin:left; }
       .nav-menu a { position:relative; }
     `;
@@ -237,11 +144,10 @@
         const target = parseFloat(el.dataset.count);
         const duration = 1500;
         const start = performance.now();
-        const suffix = el.dataset.suffix || '';
         const tick = now => {
           const progress = Math.min((now - start) / duration, 1);
           const eased = 1 - Math.pow(1 - progress, 3);
-          el.textContent = (Number.isInteger(target) ? Math.floor(target * eased) : (target * eased).toFixed(1)) + suffix;
+          el.textContent = (Number.isInteger(target) ? Math.floor(target * eased) : (target * eased).toFixed(1)) + (el.dataset.suffix || '');
           if (progress < 1) requestAnimationFrame(tick);
         };
         requestAnimationFrame(tick);
@@ -256,10 +162,7 @@
   // ============================================================
   function initSelectionColor() {
     const style = document.createElement('style');
-    style.textContent = `
-      ::selection { background:rgba(212,175,55,0.3);color:#0a0a0a; }
-      ::-moz-selection { background:rgba(212,175,55,0.3);color:#0a0a0a; }
-    `;
+    style.textContent = `::selection{background:rgba(212,175,55,0.3);color:#0a0a0a}::-moz-selection{background:rgba(212,175,55,0.3);color:#0a0a0a}`;
     document.head.appendChild(style);
   }
 
@@ -269,19 +172,13 @@
   function initImageHover() {
     document.querySelectorAll('.feat-img,.split-img,.img-card').forEach(el => {
       el.style.transition = 'transform 0.4s ease, box-shadow 0.4s ease';
-      el.addEventListener('mouseenter', () => {
-        el.style.transform = 'translateY(-6px)';
-        el.style.boxShadow = '0 16px 40px rgba(0,0,0,0.12)';
-      });
-      el.addEventListener('mouseleave', () => {
-        el.style.transform = '';
-        el.style.boxShadow = '';
-      });
+      el.addEventListener('mouseenter', () => { el.style.transform = 'translateY(-6px)'; el.style.boxShadow = '0 16px 40px rgba(0,0,0,0.12)'; });
+      el.addEventListener('mouseleave', () => { el.style.transform = ''; el.style.boxShadow = ''; });
     });
   }
 
   // ============================================================
-  // 🐱 フッター猫ゆらゆら + クリックでぴょん
+  // 🐱 フッター猫ゆらゆら + クリックでぴょん＋鈴音
   // ============================================================
   function initFooterCats() {
     const cats = document.querySelectorAll('footer img[src*="cat-"]');
@@ -308,18 +205,18 @@
       });
     });
     const style = document.createElement('style');
-    style.textContent = `@keyframes catSway { 0% { transform:rotate(-3deg); } 100% { transform:rotate(3deg); } }`;
+    style.textContent = `@keyframes catSway{0%{transform:rotate(-3deg)}100%{transform:rotate(3deg)}}`;
     document.head.appendChild(style);
   }
 
   // ============================================================
-  // 🎯 ボタンゴールドグロウ
+  // 🎯 ボタングロウ
   // ============================================================
   function initButtonGlow() {
     const style = document.createElement('style');
     style.textContent = `
-      .btn-gold:hover,.nav-cta:hover { box-shadow:0 0 20px rgba(212,175,55,0.4); }
-      .btn-line:hover,.btn-ghost:hover { box-shadow:0 0 16px rgba(250,250,247,0.15); }
+      .btn-gold:hover,.nav-cta:hover{box-shadow:0 0 20px rgba(212,175,55,0.4)}
+      .btn-line:hover,.btn-ghost:hover{box-shadow:0 0 16px rgba(250,250,247,0.15)}
     `;
     document.head.appendChild(style);
   }
@@ -337,49 +234,7 @@
   }
 
   // ============================================================
-  // ⌨️ ヒーロータイピングエフェクト
-  // ============================================================
-  function initTyping() {
-    const hero = document.querySelector('.hero-text-area h1');
-    if (!hero) return;
-    const originalHTML = hero.innerHTML;
-    const text = hero.textContent;
-    hero.innerHTML = '';
-    let i = 0;
-    const type = () => {
-      if (i < text.length) {
-        hero.textContent += text[i];
-        i++;
-        setTimeout(type, 40 + Math.random() * 30);
-      } else {
-        hero.innerHTML = originalHTML;
-      }
-    };
-    setTimeout(type, 2500);
-  }
-
-  // ============================================================
-  // 🎨 スクロールで背景色がほんのり変化
-  // ============================================================
-  function initScrollColor() {
-    if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-    const sections = document.querySelectorAll('section, .svc-section, .feat, .split, .philo');
-    if (!sections.length) return;
-
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      const docH = document.documentElement.scrollHeight;
-      // ヘッダーの透明度をスクロールに応じてわずかに変化
-      const header = document.querySelector('.site-header');
-      if (header) {
-        const opacity = Math.min(0.95, 0.85 + (scrollY / docH) * 0.3);
-        header.style.background = `rgba(10,10,10,${opacity})`;
-      }
-    }, { passive: true });
-  }
-
-  // ============================================================
-  // 🌊 マウス追従のグラデーション光（PC only、さりげなく）
+  // 🌊 マウス追従グロウ（さりげないゴールドの光）
   // ============================================================
   function initMouseGlow() {
     if (window.matchMedia('(pointer:coarse)').matches) return;
@@ -392,6 +247,47 @@
   }
 
   // ============================================================
+  // 🔑 コナミコマンド（隠し要素）
+  // ============================================================
+  function initKonami() {
+    const el = document.createElement('div');
+    el.className = 'rpg-dialog-float';
+    el.innerHTML = '<div id="rpgDialogText"></div>';
+    document.body.appendChild(el);
+
+    const code = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+    let idx = 0;
+    document.addEventListener('keydown', e => {
+      if (e.keyCode === code[idx]) {
+        idx++;
+        if (idx === code.length) {
+          idx = 0;
+          const flash = document.createElement('div');
+          flash.className = 'screen-flash';
+          document.body.appendChild(flash);
+          setTimeout(() => flash.remove(), 600);
+          try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            [523, 659, 784, 1047].forEach((freq, i) => {
+              const o = ctx.createOscillator();
+              const g = ctx.createGain();
+              o.connect(g); g.connect(ctx.destination);
+              o.frequency.value = freq; o.type = 'square';
+              g.gain.setValueAtTime(0.08, ctx.currentTime + i * 0.15);
+              g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.15 + 0.3);
+              o.start(ctx.currentTime + i * 0.15);
+              o.stop(ctx.currentTime + i * 0.15 + 0.3);
+            });
+          } catch (e) {}
+          el.querySelector('#rpgDialogText').innerHTML = '🎊 隠しコマンド発見！ あなたはmochikuroマスターです。';
+          el.classList.add('show');
+          setTimeout(() => el.classList.remove('show'), 5000);
+        }
+      } else { idx = 0; }
+    });
+  }
+
+  // ============================================================
   // 初期化
   // ============================================================
   document.addEventListener('DOMContentLoaded', () => {
@@ -399,9 +295,6 @@
     initReveal();
     initBoot();
     initParticles();
-    initXPBar();
-    initLevel();
-    initKonami();
     initPawClick();
     initCardTilt();
     initNavGlow();
@@ -411,8 +304,7 @@
     initFooterCats();
     initButtonGlow();
     initSmoothScroll();
-    initTyping();
-    initScrollColor();
     initMouseGlow();
+    initKonami();
   });
 })();
