@@ -2096,14 +2096,7 @@ body, h1, h2, h3, h4, p, a, span, div, button, li, label, input, textarea, selec
 .level-badge:hover { box-shadow: 0 0 24px rgba(212,175,55,0.6); transform: scale(1.05); }
 .level-badge .lv { font-size: 18px; font-weight: 700; }
 
-/* コンボ */
-.combo {
-  position: fixed; top: 50%; right: 40px; transform: translateY(-50%);
-  z-index: 80; text-align: right; pointer-events: none; opacity: 0; transition: opacity 0.5s;
-}
-.combo.show { opacity: 1; }
-.combo-num { font-size: 48px; font-weight: 900; color: #d4af37; line-height: 1; text-shadow: 0 0 20px rgba(212,175,55,0.5); }
-.combo-label { font-size: 11px; letter-spacing: 0.3em; color: rgba(212,175,55,0.7); }
+/* コンボ: 削除済 */
 
 /* グリッチ */
 .glitch { position: relative; }
@@ -2125,13 +2118,7 @@ body, h1, h2, h3, h4, p, a, span, div, button, li, label, input, textarea, selec
   75% { clip-path: inset(20% 0 60% 0); transform: translate(-1px,0); }
 }
 
-/* スキャンライン */
-.svc-card::before {
-  content: ''; position: absolute; inset: 0;
-  background: repeating-linear-gradient(180deg, transparent 0%, rgba(212,175,55,0.03) 50%, transparent 100%);
-  background-size: 100% 4px; opacity: 0; transition: opacity 0.3s; pointer-events: none;
-}
-.svc-card:hover::before { opacity: 1; }
+/* スキャンライン: 削除済 */
 .svc-card { position: relative; overflow: hidden; }
 
 /* ボタンエフェクト */
