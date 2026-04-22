@@ -261,6 +261,199 @@
   }
 
   // ============================================================
+  // 🐾 クリックで肉球エフェクト
+  // ============================================================
+  function initPawClick() {
+    document.addEventListener('click', e => {
+      if (e.target.closest('a,button,input,textarea,select,label')) return;
+      const paw = document.createElement('div');
+      paw.textContent = '🐾';
+      paw.style.cssText = `position:fixed;left:${e.clientX-12}px;top:${e.clientY-12}px;font-size:24px;pointer-events:none;z-index:9999;`;
+      document.body.appendChild(paw);
+      paw.animate([
+        { transform: 'scale(1) translateY(0)', opacity: 1 },
+        { transform: 'scale(0.6) translateY(-30px)', opacity: 0 }
+      ], { duration: 800, easing: 'ease-out' });
+      setTimeout(() => paw.remove(), 800);
+    });
+  }
+
+  // ============================================================
+  // 🃏 カードの3Dティルト（hover時に視点追従）
+  // ============================================================
+  function initCardTilt() {
+    document.querySelectorAll('.svc-card,.rpg-card,.card').forEach(card => {
+      card.style.transition = 'transform 0.2s ease, box-shadow 0.2s ease';
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(600px) rotateY(${x*8}deg) rotateX(${-y*8}deg) translateZ(4px)`;
+        card.style.boxShadow = `${-x*10}px ${y*10}px 20px rgba(0,0,0,0.1)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.boxShadow = '';
+      });
+    });
+  }
+
+  // ============================================================
+  // ✨ ナビリンクのアンダーラインアニメーション
+  // ============================================================
+  function initNavGlow() {
+    const style = document.createElement('style');
+    style.textContent = `
+      .nav-menu a::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 2px;
+        background: #d4af37;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.3s ease;
+      }
+      .nav-menu a:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+      .nav-menu a { position: relative; }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // ============================================================
+  // 🔢 数字カウントアップ
+  // ============================================================
+  function initCountUp() {
+    const nums = document.querySelectorAll('[data-count]');
+    if (!nums.length || !('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        const el = en.target;
+        const target = parseFloat(el.dataset.count);
+        const duration = 1500;
+        const start = performance.now();
+        const suffix = el.dataset.suffix || '';
+        const tick = now => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = (Number.isInteger(target) ? Math.floor(target * eased) : (target * eased).toFixed(1)) + suffix;
+          if (progress < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        io.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    nums.forEach(n => io.observe(n));
+  }
+
+  // ============================================================
+  // 🌟 ゴールデンテキスト選択色
+  // ============================================================
+  function initSelectionColor() {
+    const style = document.createElement('style');
+    style.textContent = `
+      ::selection { background: rgba(212,175,55,0.3); color: #0a0a0a; }
+      ::-moz-selection { background: rgba(212,175,55,0.3); color: #0a0a0a; }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // ============================================================
+  // 🐱 フッター猫クリックで鈴音
+  // ============================================================
+  function initFooterCats() {
+    const cats = document.querySelectorAll('footer img[src*="cat-"]');
+    cats.forEach((img, i) => {
+      // ゆらゆら
+      img.style.animation = `catSway ${3 + i * 0.5}s ease-in-out infinite alternate`;
+      img.style.cursor = 'pointer';
+      // クリックでぴょん
+      img.addEventListener('click', e => {
+        e.stopPropagation();
+        img.animate([
+          { transform: 'translateY(0) rotate(0)' },
+          { transform: 'translateY(-12px) rotate(10deg)' },
+          { transform: 'translateY(0) rotate(0)' }
+        ], { duration: 400, easing: 'ease-out' });
+        addXP(2);
+        // 鈴音
+        try {
+          const ctx = new (window.AudioContext || window.webkitAudioContext)();
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain); gain.connect(ctx.destination);
+          osc.frequency.value = 1200; osc.type = 'sine';
+          gain.gain.setValueAtTime(0.08, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+          osc.start(); osc.stop(ctx.currentTime + 0.4);
+        } catch (e) {}
+      });
+    });
+    const style = document.createElement('style');
+    style.textContent = `@keyframes catSway { 0% { transform: rotate(-3deg); } 100% { transform: rotate(3deg); } }`;
+    document.head.appendChild(style);
+  }
+
+  // ============================================================
+  // ⌨️ タイトルのタイピングエフェクト（ヒーローのみ）
+  // ============================================================
+  function initTyping() {
+    const hero = document.querySelector('.hero-text-area h1, .hero-catch-v2');
+    if (!hero) return;
+    const originalHTML = hero.innerHTML;
+    const text = hero.textContent;
+    hero.innerHTML = '';
+    hero.style.visibility = 'visible';
+    let i = 0;
+    const type = () => {
+      if (i < text.length) {
+        hero.textContent += text[i];
+        i++;
+        setTimeout(type, 40 + Math.random() * 30);
+      } else {
+        // 終わったらHTML復元（emタグ等）
+        hero.innerHTML = originalHTML;
+      }
+    };
+    setTimeout(type, 2500); // ブート画面の後
+  }
+
+  // ============================================================
+  // 🎯 ボタンhover時にゴールドグロウ
+  // ============================================================
+  function initButtonGlow() {
+    const style = document.createElement('style');
+    style.textContent = `
+      .btn-gold:hover, .nav-cta:hover {
+        box-shadow: 0 0 20px rgba(212,175,55,0.4);
+      }
+      .btn-line:hover, .btn-ghost:hover {
+        box-shadow: 0 0 16px rgba(250,250,247,0.15);
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // ============================================================
+  // 🔄 スムーズな内部リンクスクロール
+  // ============================================================
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  }
+
+  // ============================================================
   // 初期化
   // ============================================================
   document.addEventListener('DOMContentLoaded', () => {
@@ -272,7 +465,15 @@
     initLevel();
     initKonami();
     initStampRally();
-    initImageHover();
+    initPawClick();
+    initCardTilt();
+    initNavGlow();
+    initCountUp();
+    initSelectionColor();
     initFooterCats();
+    initTyping();
+    initButtonGlow();
+    initSmoothScroll();
+    initImageHover();
   });
 })();
