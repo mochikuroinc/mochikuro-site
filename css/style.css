@@ -2035,3 +2035,153 @@ h1, h2, h3, h4 {
   }
   .hero-bg::before { animation: none !important; }
 }
+
+/* ============================================================
+   🎮 ゲームエフェクト（全ページ共通）
+   ============================================================ */
+
+/* ゲームフォント統一 */
+body, h1, h2, h3, h4, p, a, span, div, button, li, label, input, textarea, select {
+  font-family: 'DotGothic16', 'Noto Sans JP', monospace !important;
+}
+
+/* ブート画面 */
+.game-boot {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #0a0a0a;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+  transition: opacity 0.8s ease;
+}
+.game-boot.fade-out { opacity: 0; pointer-events: none; }
+.game-boot-text {
+  color: #d4af37; font-size: 14px; letter-spacing: 0.3em;
+  animation: bootBlink 1s steps(2) infinite;
+}
+.game-boot-bar { width: 200px; height: 6px; background: #222; border: 1px solid #333; overflow: hidden; }
+.game-boot-fill { height: 100%; width: 0%; background: #d4af37; animation: bootLoad 1.8s ease-in-out forwards; }
+@keyframes bootBlink { 50% { opacity: 0.3; } }
+@keyframes bootLoad { 0% { width: 0%; } 100% { width: 100%; } }
+
+/* パーティクル */
+.particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.particle {
+  position: absolute; width: 3px; height: 3px;
+  background: #d4af37; border-radius: 50%; opacity: 0;
+  animation: particleFloat linear infinite;
+}
+@keyframes particleFloat {
+  0% { opacity: 0; transform: translateY(100vh) scale(0); }
+  10% { opacity: 0.6; } 90% { opacity: 0.3; }
+  100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+}
+
+/* XPバー */
+.xp-bar {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, #d4af37, #c2603b, #d4af37);
+  background-size: 200% 100%;
+  animation: xpShimmer 2s linear infinite;
+  z-index: 9998; transition: width 0.1s linear;
+  box-shadow: 0 0 8px rgba(212,175,55,0.6);
+}
+@keyframes xpShimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+/* レベルバッジ */
+.level-badge {
+  position: fixed; bottom: 20px; right: 20px; z-index: 90;
+  background: #0a0a0a; border: 2px solid #d4af37; color: #d4af37;
+  padding: 8px 14px; font-size: 11px; letter-spacing: 0.15em;
+  box-shadow: 0 0 16px rgba(212,175,55,0.3); cursor: default; transition: all 0.3s;
+}
+.level-badge:hover { box-shadow: 0 0 24px rgba(212,175,55,0.6); transform: scale(1.05); }
+.level-badge .lv { font-size: 18px; font-weight: 700; }
+
+/* コンボ */
+.combo {
+  position: fixed; top: 50%; right: 40px; transform: translateY(-50%);
+  z-index: 80; text-align: right; pointer-events: none; opacity: 0; transition: opacity 0.5s;
+}
+.combo.show { opacity: 1; }
+.combo-num { font-size: 48px; font-weight: 900; color: #d4af37; line-height: 1; text-shadow: 0 0 20px rgba(212,175,55,0.5); }
+.combo-label { font-size: 11px; letter-spacing: 0.3em; color: rgba(212,175,55,0.7); }
+
+/* グリッチ */
+.glitch { position: relative; }
+.glitch:hover::before, .glitch:hover::after {
+  content: attr(data-text); position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+}
+.glitch:hover::before { color: #c2603b; z-index: -1; animation: glitch1 0.3s ease infinite; }
+.glitch:hover::after { color: #4a9eff; z-index: -2; animation: glitch2 0.3s ease infinite; }
+@keyframes glitch1 {
+  0%,100% { clip-path: inset(0 0 80% 0); transform: translate(-2px,0); }
+  25% { clip-path: inset(20% 0 60% 0); transform: translate(2px,0); }
+  50% { clip-path: inset(40% 0 40% 0); transform: translate(-1px,0); }
+  75% { clip-path: inset(60% 0 20% 0); transform: translate(1px,0); }
+}
+@keyframes glitch2 {
+  0%,100% { clip-path: inset(80% 0 0 0); transform: translate(2px,0); }
+  25% { clip-path: inset(60% 0 20% 0); transform: translate(-2px,0); }
+  50% { clip-path: inset(40% 0 40% 0); transform: translate(1px,0); }
+  75% { clip-path: inset(20% 0 60% 0); transform: translate(-1px,0); }
+}
+
+/* スキャンライン */
+.svc-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(180deg, transparent 0%, rgba(212,175,55,0.03) 50%, transparent 100%);
+  background-size: 100% 4px; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+}
+.svc-card:hover::before { opacity: 1; }
+.svc-card { position: relative; overflow: hidden; }
+
+/* ボタンエフェクト */
+.btn-gold, .btn-line, .btn-primary, .btn-ghost, .nav-cta {
+  position: relative; overflow: hidden; transition: all 0.15s ease !important;
+}
+.btn-gold:active, .btn-line:active, .btn-primary:active, .btn-ghost:active, .nav-cta:active {
+  transform: scale(0.95) !important; filter: brightness(1.2);
+}
+.btn-gold::after, .btn-primary::after, .nav-cta::after {
+  content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s ease;
+}
+.btn-gold:hover::after, .btn-primary:hover::after, .nav-cta:hover::after { left: 150%; }
+
+/* セクションワイプ */
+.section-wipe { position: relative; overflow: hidden; }
+.section-wipe::after {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: #d4af37; transform: translateX(-101%); z-index: 5;
+}
+.section-wipe.wipe-in::after { animation: wipeIn 0.8s cubic-bezier(0.76,0,0.24,1) forwards; }
+@keyframes wipeIn { 0% { transform: translateX(-101%); } 50% { transform: translateX(0); } 100% { transform: translateX(101%); } }
+
+/* RPGダイアログ */
+.rpg-dialog-float {
+  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+  z-index: 95; background: #0a0a0a; border: 2px solid #d4af37; color: #fafaf7;
+  padding: 14px 24px; font-size: 13px; max-width: 440px; width: 90%;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5), 0 0 10px rgba(212,175,55,0.2);
+  opacity: 0; transform: translateX(-50%) translateY(20px); transition: all 0.4s ease; pointer-events: none;
+}
+.rpg-dialog-float.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+.rpg-dialog-float .speaker {
+  display: inline-block; background: #d4af37; color: #0a0a0a;
+  font-size: 10px; font-weight: 700; padding: 2px 8px; margin-bottom: 8px; letter-spacing: 0.1em;
+}
+.rpg-dialog-float .blink { display: inline-block; animation: bootBlink 1s steps(2) infinite; color: #d4af37; margin-left: 4px; }
+
+/* フラッシュ */
+.screen-flash { position: fixed; inset: 0; background: #d4af37; z-index: 99999; opacity: 0; pointer-events: none; animation: flash 0.5s ease; }
+@keyframes flash { 0% { opacity: 0.8; } 100% { opacity: 0; } }
+
+@media (max-width: 768px) {
+  .game-boot-text { font-size: 12px; }
+  .particles { display: none; }
+  .combo { right: 16px; }
+  .level-badge { bottom: 12px; right: 12px; padding: 6px 10px; font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .particles, .game-boot { display: none !important; }
+}
