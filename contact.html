@@ -52,7 +52,10 @@
       <a href="index.html" class="btn btn-primary">ホームへ戻る</a>
     </div>
 
-    <form class="form" id="contactForm" action="contact.php" method="POST" novalidate>
+    <form class="form" id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+      <input type="hidden" name="access_key" value="60b94cf4-ddc8-4a6d-8881-203e64589f82">
+      <input type="hidden" name="subject" value="【mochikuro.com】新しいお問い合わせ">
+      <input type="hidden" name="from_name" value="mochikuro.com お問い合わせフォーム">
 
       <div class="form-group">
         <label class="form-label">お問い合わせ種別<span class="req">*</span></label>
