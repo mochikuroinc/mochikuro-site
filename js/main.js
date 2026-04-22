@@ -153,7 +153,7 @@
   }
 
   // ============================================================
-  // 💬 RPGダイアログ
+  // 💬 RPGダイアログ（コナミコマンド等の特殊イベント用のみ）
   // ============================================================
   function initDialog() {
     const el = document.createElement('div');
@@ -161,46 +161,7 @@
     el.innerHTML = '<div class="speaker">SYSTEM</div><div id="rpgDialogText"></div>';
     document.body.appendChild(el);
 
-    const messages = [
-      'ようこそ、mochikuro の世界へ。',
-      'この先には 3つの事業 が待っている…',
-      'EC × AI × DX。あなたの冒険が始まる。',
-      '企業価値をモチアゲる旅に出よう。',
-      'スクロールして先に進もう。▼',
-      '隠しコマンドを知っているか？ ↑↑↓↓←→←→BA',
-      'ページの最後まで辿り着けるか？',
-      'クリックするとXPがたまるぞ。',
-    ];
-    let shown = new Set();
-    let triggers = [300, 800, 1500, 2500, 4000];
-    let nextTrigger = 0;
-
-    function showMsg() {
-      const available = messages.filter((_, i) => !shown.has(i));
-      if (!available.length) return;
-      const idx = messages.indexOf(available[Math.floor(Math.random() * available.length)]);
-      shown.add(idx);
-      const textEl = el.querySelector('#rpgDialogText');
-      textEl.textContent = '';
-      el.classList.add('show');
-      let i = 0;
-      const iv = setInterval(() => {
-        textEl.textContent += messages[idx][i];
-        i++;
-        if (i >= messages[idx].length) {
-          clearInterval(iv);
-          textEl.innerHTML += '<span class="blink">▼</span>';
-          setTimeout(() => el.classList.remove('show'), 4000);
-        }
-      }, 50);
-    }
-
-    window.addEventListener('scroll', () => {
-      if (nextTrigger >= triggers.length) return;
-      if (window.scrollY > triggers[nextTrigger]) { showMsg(); nextTrigger++; }
-    }, { passive: true });
-    setTimeout(showMsg, 3500);
-
+    // スクロール中の自動ポップは削除。特殊イベント時のみ表示。
     window._showRPGDialog = function(text) {
       const textEl = el.querySelector('#rpgDialogText');
       textEl.innerHTML = text;
@@ -301,23 +262,8 @@
     });
   }
 
-  // ============================================================
-  // 🌀 セクションワイプ
-  // ============================================================
-  function initWipe() {
-    // 自動的にセクションにwipeクラスを付与
-    document.querySelectorAll('.section,.svc-section,.feat,.split,.content').forEach(el => {
-      el.classList.add('section-wipe');
-    });
-    const wipes = document.querySelectorAll('.section-wipe');
-    if (!wipes.length || !('IntersectionObserver' in window)) return;
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('wipe-in'); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.15 });
-    wipes.forEach(w => io.observe(w));
-  }
+  // セクションワイプは削除（うるさいため）
+  function initWipe() {}
 
   // ============================================================
   // 🖼 パララックス
